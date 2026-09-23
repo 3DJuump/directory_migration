@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#", 
+    "title": "∞ Asset Migration from 3.3 to 4.0 configuration file",
+    "additionalProperties": false,
+    "properties": {
+        "directoryurl": {
+            "description": "the directory url",
+            "type" : "string",
+            "pattern": "^https?:\\/\\/\\S+$"
+        },
+        "http_username" : {
+            "description": "the directory http username, usually 'infinite', if undefined 'infinite' is used",
+            "type" : "string",
+            "minLength": 1
+        },
+        "http_password" : {
+            "description": "the directory http password",
+            "type" : "string",
+            "minLength": 1
+        },
+        "infinite_admin_username" : {
+            "description": "the directory infinite username, usually 'infinite', if undefined 'http_username' is used",
+            "type" : "string",
+            "minLength": 1
+        },
+        "infinite_admin_password" : {
+            "description": "the directory infinite password, if undefined 'http_password' is used",
+            "type" : "string",
+            "minLength": 1
+        },
+        "asset_file" : 
+        {
+            "description": "the ndjson file of the assets to restore",
+            "type" : "string",
+            "minLength": 1
+        },
+        "verifyssl" :
+        {
+            "description": "if set to false, ssl verification is disabled",
+            "type" : "boolean",
+            "default": true
+        },
+        "owner_users" :
+        {
+            "description": "list of user ids ('U' prefixed) that replace the read/write access list of every migrated asset. If undefined, the original access list is kept",
+            "type" : "array",
+            "items": { "type": "string", "minLength": 1 }
+        },
+        "max_chunk_size" :
+        {
+            "description": "Data will be sent by chunk of this size (in MB), if undefined, defaults to 256",
+            "type" : "integer"
+        }
+    },
+    "required": [
+        "directoryurl",
+        "http_password",
+        "asset_file"
+    ],
+    "type": "object"
+}
